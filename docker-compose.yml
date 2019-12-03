@@ -14,6 +14,7 @@ services:
     image: clust-slave
     volumes:
       - ./instances/world1:/factorioClusterio/instances/world1
+      - ./sharedMods:/factorioClusterio/sharedMods:ro
       - auth-secret:/factorioClusterio/secret:ro
     environment:
       - INSTANCE=world1
@@ -29,6 +30,7 @@ services:
     image: clust-slave
     volumes:
       - ./instances/world2:/factorioClusterio/instances/world2
+      - ./sharedMods:/factorioClusterio/sharedMods:ro
       - auth-secret:/factorioClusterio/secret:ro
     environment:
       - INSTANCE=world2
