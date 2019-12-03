@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  master:
+    image: clusterio
+    environment:
+      - MODE=master
+    ports:
+      - 8080:8080
+
+
+  world1:
+    image: clusterio
+    volumes:
+      - ./world1/config.json:/factorioClusterio/config.json:ro
+      - /srv/clusterio/instances:/factorioClusterio/instances
+    environment:
+      - MODE=client
+      - INSTANCE=world1
+      - FACTORIOPORT=34197
+    ports:
+      - 34197:34197/udp
+
+  world2:
+    image: clusterio
+    volumes:
+      - ./world2/config.json:/factorioClusterio/config.json:ro
+      - /srv/clusterio/instances:/factorioClusterio/instances
+    environment:
+      - MODE=client
+      - INSTANCE=world2
+      - FACTORIOPORT=34198
+    ports:
+      - 34198:34198/udp
