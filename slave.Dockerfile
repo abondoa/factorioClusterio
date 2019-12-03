@@ -7,6 +7,7 @@ RUN apt-get update && \
     curl -o factorio.tar.gz -L https://www.factorio.com/get-download/latest/headless/linux64 && \
     tar -xf factorio.tar.gz && \
     curl -o jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && \
+    chmod +x jq && \
     mkdir instances sharedMods
 COPY . /factorioClusterio
 WORKDIR /factorioClusterio
