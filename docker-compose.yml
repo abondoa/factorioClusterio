@@ -1,10 +1,10 @@
-version: '3'
+version: '3.7'
 
 services:
   master:
     image: clusterio
-    environment:
-      - MODE=master
+    volumes:
+      - auth-secret:/factorioClusterio/secret-api-token.txt
     ports:
       - 8080:8080
 
@@ -13,9 +13,9 @@ services:
     image: clusterio
     volumes:
       - ./world1/config.json:/factorioClusterio/config.json:ro
-      - /srv/clusterio/instances:/factorioClusterio/instances
+      - /srv/clusterio/instances/world1:/factorioClusterio/instances/world1
+      - auth-secret:/factorioClusterio/secret-api-token.txt:ro
     environment:
-      - MODE=client
       - INSTANCE=world1
       - FACTORIOPORT=34197
     ports:
@@ -25,10 +25,13 @@ services:
     image: clusterio
     volumes:
       - ./world2/config.json:/factorioClusterio/config.json:ro
-      - /srv/clusterio/instances:/factorioClusterio/instances
+      - /srv/clusterio/instances/world2:/factorioClusterio/instances/world2
+      - auth-secret:/factorioClusterio/secret-api-token.txt:ro
     environment:
-      - MODE=client
       - INSTANCE=world2
       - FACTORIOPORT=34198
     ports:
       - 34198:34198/udp
+
+volumes:
+  auth-secret:

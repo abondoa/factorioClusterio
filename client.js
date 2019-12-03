@@ -48,7 +48,7 @@ process.title = "clusterioClient "+instance;
 process.on('unhandledRejection', r => console.log(r));
 
 // make sure we have the master access token (can't write to master without it since clusterio 2.0)
-if(!config.masterAuthToken || typeof config.masterAuthToken !== "string"){
+if(command != 'download' && (!config.masterAuthToken || typeof config.masterAuthToken !== "string")){
 	console.error("ERROR invalid config!");
 	console.error("Master server now needs an access token for write operations. As clusterio slaves depends \
 	upon this, please add your token to config.json in the field named masterAuthToken. \
