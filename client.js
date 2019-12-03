@@ -274,8 +274,17 @@ if (!command || command == "help" || command == "--help") {
 	console.log("Downloading mods...");
 	// get JSON data about releases
 	let res = syncRequest('GET', 'https://api.github.com/repos/Danielv123/factorioClusterioMod/releases', {"headers":{"User-Agent":"Fuck you for requiring user agents!"}});
-	let url = JSON.parse(res.getBody())[0].assets[0].browser_download_url;
-	let name = JSON.parse(res.getBody())[0].assets[0].name;
+	const body = JSON.parse(res.getBody());
+	const version = process.env.MOD_VERSION;
+	let url;
+	let name;
+	if (version) {
+		url = body.find(x => x.tag_name === version).assets[0].browser_download_url;
+		name = body.find(x => x.tag_name === version).assets[0].name;
+	} else {
+		url = body[0].assets[0].browser_download_url;
+		name = body[0].assets[0].name;
+	}
 	if(url) {
 		console.log(url);
 		let file = fs.createWriteStream("sharedMods/"+name);

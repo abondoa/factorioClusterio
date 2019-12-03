@@ -10,6 +10,7 @@ RUN apt-get update && \
     mkdir instances sharedMods
 COPY . /factorioClusterio
 WORKDIR /factorioClusterio
+ENV MOD_VESION=1.15.2
 RUN cp config.json.dist config.json && \
     npm install --only=production && \
     node client.js download
