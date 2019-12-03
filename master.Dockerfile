@@ -8,8 +8,6 @@ RUN apt-get update && \
     npm install --only=production && \
     cp config.json.dist config.json
 
-VOLUME /factorioClusterio/secret-api-token.txt
-
 EXPOSE 8080
 
 CMD node master.js
