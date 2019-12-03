@@ -7,16 +7,14 @@ RUN apt-get update && \
     curl -o factorio.tar.gz -L https://www.factorio.com/get-download/latest/headless/linux64 && \
     tar -xf factorio.tar.gz && \
     mkdir instances sharedMods
-COPY . /factorioClusterio
 WORKDIR /factorioClusterio
+COPY . /factorioClusterio
 ENV MOD_VERSION=1.15.2
 RUN cp config.json.dist config.json && \
     npm install --only=production && \
     node client.js download
 
-VOLUME /factorioClusterio/instances
-VOLUME /factorioClusterio/sharedMods
-VOLUME /factorioClusterio/sharedPlugins
+VOLUME ["/factorioClusterio/instances", "/factorioClusterio/sharedMods", "/factorioClusterio/sharedPlugins"]
 
 ENTRYPOINT [ "/factorioClusterio/entrypoint.slave.sh" ]
 
