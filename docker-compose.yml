@@ -10,11 +10,9 @@ services:
     ports:
       - 8080:8080
 
-
   world1:
     image: clust-slave
     volumes:
-      - ./world1/config.json:/factorioClusterio/config.json:ro
       - ./instances/world1:/factorioClusterio/instances/world1
       - auth-secret:/factorioClusterio/secret:ro
     environment:
@@ -30,7 +28,6 @@ services:
   world2:
     image: clust-slave
     volumes:
-      - ./world2/config.json:/factorioClusterio/config.json:ro
       - ./instances/world2:/factorioClusterio/instances/world2
       - auth-secret:/factorioClusterio/secret:ro
     environment:
