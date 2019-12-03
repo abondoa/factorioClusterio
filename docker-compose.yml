@@ -4,7 +4,9 @@ services:
   master:
     image: clust-master
     volumes:
-      - auth-secret:/factorioClusterio/secret-api-token.txt
+      - auth-secret:/factorioClusterio/secret
+    environment:
+      - SECRET_API_TOKEN_FILE=/factorioClusterio/secret/secret-api-token.txt
     ports:
       - 8080:8080
 
@@ -14,10 +16,11 @@ services:
     volumes:
       - ./world1/config.json:/factorioClusterio/config.json:ro
       - /srv/clusterio/instances/world1:/factorioClusterio/instances/world1
-      - auth-secret:/factorioClusterio/secret-api-token.txt:ro
+      - auth-secret:/factorioClusterio/secret:ro
     environment:
       - INSTANCE=world1
       - FACTORIOPORT=34197
+      - SECRET_API_TOKEN_FILE=/factorioClusterio/secret/secret-api-token.txt
     ports:
       - 34197:34197/udp
     depends_on: 
@@ -28,10 +31,11 @@ services:
     volumes:
       - ./world2/config.json:/factorioClusterio/config.json:ro
       - /srv/clusterio/instances/world2:/factorioClusterio/instances/world2
-      - auth-secret:/factorioClusterio/secret-api-token.txt:ro
+      - auth-secret:/factorioClusterio/secret:ro
     environment:
       - INSTANCE=world2
       - FACTORIOPORT=34198
+      - SECRET_API_TOKEN_FILE=/factorioClusterio/secret/secret-api-token.txt
     ports:
       - 34198:34198/udp
     depends_on: 
