@@ -36,7 +36,7 @@ if (!fs.existsSync("./sharedPlugins/")) {
 if (!fs.existsSync("./sharedMods/")) {
 	fs.mkdirSync("sharedMods");
 }
-const instance = process.argv[3];
+const instance = process.argv[3] || process.env.INSTANCE;
 const instancedirectory = config.instanceDirectory + '/' + instance;
 const command = process.argv[2];
 

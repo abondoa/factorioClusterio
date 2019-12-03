@@ -21,4 +21,4 @@ VOLUME /factorioClusterio/sharedPlugins
 
 ENTRYPOINT [ "/factorioClusterio/entrypoint.slave.sh" ]
 
-CMD ["node", "client.js", "start", "$INSTANCE"]
+CMD ["node", "client.js", "start"
