@@ -66,7 +66,6 @@ if (!fs.existsSync(config.secretFile)) {
 		expiresIn: 86400*365 // expires in 1 year
 	}));
 	console.log("Generated new master authentication private key!");
-	process.exit(0);
 }
 // write an auth token to file
 fs.writeFileSync(config.secretFile, jwt.sign({ id: "api" }, config.masterAuthSecret, {
