@@ -8,8 +8,8 @@ RUN apt-get update && \
     tar -xf factorio.tar.gz && \
     mkdir instances sharedMods
 WORKDIR /factorioClusterio
-COPY . /factorioClusterio
 ENV MOD_VERSION=1.15.2
+COPY . /factorioClusterio
 RUN cp config.json.dist config.json && \
     npm install --only=production && \
     node client.js download
