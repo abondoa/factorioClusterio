@@ -411,7 +411,18 @@ write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 } else if (command == "start" && typeof instance == "string" && instance != "/" && fs.existsSync(instancedirectory)){(async () => {
 	// Exit if no instance specified (it should be, just a safeguard);
 	if(instancedirectory != config.instanceDirectory+"/undefined"){
-		var instanceconfig = require(path.resolve(instancedirectory,'config'));
+		if (fs.existsSync(path.resolve(instancedirectory,'config'))) {
+			var instanceconfig = require(path.resolve(instancedirectory,'config'));
+		} else {
+			var instanceconfig = {
+				"factorioPort": args.port || process.env.FACTORIOPORT || Math.floor(Math.random() * 65535),
+				"clientPort": args["rcon-port"] || process.env.RCONPORT || Math.floor(Math.random() * 65535),
+				"__comment_clientPassword": "This is the rcon password. Its also used for making an instanceID. Make sure its unique and not blank.",
+				"clientPassword": args["rcon-password"] || Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
+				"info": {}
+			}
+			fs.writeFileSync(instancedirectory + "/config.json", JSON.stringify(instanceconfig, null, 4));
+		}
 		instanceconfig.unique = stringUtils.hashCode(instanceconfig.clientPassword);
 		if(process.env.FACTORIOPORT){
 			instanceconfig.factorioPort = process.env.FACTORIOPORT;
