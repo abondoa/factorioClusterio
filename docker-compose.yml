@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   master:
-    image: clusterio
+    image: clust-master
     volumes:
       - auth-secret:/factorioClusterio/secret-api-token.txt
     ports:
@@ -10,7 +10,7 @@ services:
 
 
   world1:
-    image: clusterio
+    image: clust-slave
     volumes:
       - ./world1/config.json:/factorioClusterio/config.json:ro
       - /srv/clusterio/instances/world1:/factorioClusterio/instances/world1
@@ -20,9 +20,11 @@ services:
       - FACTORIOPORT=34197
     ports:
       - 34197:34197/udp
+    depends_on: 
+      - master
 
   world2:
-    image: clusterio
+    image: clust-slave
     volumes:
       - ./world2/config.json:/factorioClusterio/config.json:ro
       - /srv/clusterio/instances/world2:/factorioClusterio/instances/world2
@@ -32,6 +34,8 @@ services:
       - FACTORIOPORT=34198
     ports:
       - 34198:34198/udp
+    depends_on: 
+      - master
 
 volumes:
   auth-secret:
