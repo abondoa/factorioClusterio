@@ -15,12 +15,15 @@ services:
     volumes:
       - ./instances/world1:/factorioClusterio/instances/world1
       - ./sharedMods:/factorioClusterio/sharedMods:ro
+      - ./sharedPlugins:/factorioClusterio/sharedPlugins:ro
       - auth-secret:/factorioClusterio/secret:ro
     environment:
       - INSTANCE=world1
       - FACTORIOPORT=34197
       - SECRET_API_TOKEN_FILE=/factorioClusterio/secret/secret-api-token.txt
       - MASTERIP=master
+    env_file:
+      - .env
     ports:
       - 34197:34197/udp
     depends_on: 
@@ -31,12 +34,15 @@ services:
     volumes:
       - ./instances/world2:/factorioClusterio/instances/world2
       - ./sharedMods:/factorioClusterio/sharedMods:ro
+      - ./sharedPlugins:/factorioClusterio/sharedPlugins:ro
       - auth-secret:/factorioClusterio/secret:ro
     environment:
       - INSTANCE=world2
       - FACTORIOPORT=34198
       - SECRET_API_TOKEN_FILE=/factorioClusterio/secret/secret-api-token.txt
       - MASTERIP=master
+    env_file:
+      - .env
     ports:
       - 34198:34198/udp
     depends_on: 
