@@ -273,7 +273,7 @@ if (!command || command == "help" || command == "--help") {
 } else if (command == "download") {
 	console.log("Downloading mods...");
 	// get JSON data about releases
-	let res = syncRequest('GET', 'https://api.github.com/repos/Danielv123/factorioClusterioMod/releases', {"headers":{"User-Agent":"Fuck you for requiring user agents!"}});
+	let res = syncRequest('GET', 'https://api.github.com/repositories/77744961/releases', {"headers":{"User-Agent":"Clusterio mod"}});
 	const body = JSON.parse(res.getBody());
 	const version = process.env.MOD_VERSION;
 	let url;
