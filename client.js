@@ -499,6 +499,11 @@ write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 		fs.writeFileSync(instancedirectory + "/server-adminlist.json", JSON.stringify(config.admins, null, 4));
 	else if (config.username)
 		fs.writeFileSync(instancedirectory + "/server-adminlist.json", JSON.stringify([config.username], null, 4));
+	
+	if (!fs.existsSync(instancedirectory + "/script-output/output.txt"))
+		fs.writeFileSync(instancedirectory + "/script-output/output.txt", "");
+	if (!fs.existsSync(instancedirectory + "/script-output/orders.txt"))
+		fs.writeFileSync(instancedirectory + "/script-output/orders.txt", "");
 	// Spawn factorio server
 	//var serverprocess = child_process.exec(commandline);
 	fileOps.getNewestFile(instancedirectory + "/saves/", fs.readdirSync(instancedirectory + "/saves/"),function(err, latestSave) {
