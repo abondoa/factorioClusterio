@@ -17,7 +17,7 @@ module.exports = class remoteCommands {
 			
 		});
 		const that = this;
-		const instance = process.argv[3];
+		const instance = process.argv[3] || process.env.INSTANCE;
 		const instancedirectory = this.config.instanceDirectory + '/' + instance;
 		
 		const needleOptionsWithTokenAuthHeader = {
