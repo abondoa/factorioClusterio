@@ -473,30 +473,28 @@ write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 read-data=${ path.resolve(config.factorioDirectory, "data") }\r\n
 write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 	`);
-	if(!fs.existsSync(instancedirectory + "/server-settings.json")) {
-		let name = "Clusterio instance: " + instance;
-		if (config.username) {
-			name = config.username + "'s clusterio " + instance;
-		}
-		let serversettings = {
-			"name": name,
-			"description": config.description,
-			"tags": ["clusterio"],
-			"max_players": "20",
-			"visibility": config.visibility,
-			"username": config.username,
-			"token": config.token,
-			"game_password": config.game_password,
-			"verify_user_identity": config.verify_user_identity,
-			"admins": [config.username],
-			"allow_commands": config.allow_commands,
-			"autosave_interval": 10,
-			"autosave_slots": 5,
-			"afk_autokick_interval": 0,
-			"auto_pause": config.auto_pause,
-		};
-		fs.writeFileSync(instancedirectory + "/server-settings.json", JSON.stringify(serversettings, null, 4));
+	let name = "Clusterio instance: " + instance;
+	if (config.username) {
+		name = config.username + "'s clusterio " + instance;
 	}
+	let serversettings = {
+		"name": name,
+		"description": config.description,
+		"tags": ["clusterio"],
+		"max_players": "20",
+		"visibility": config.visibility,
+		"username": config.username,
+		"token": config.token,
+		"game_password": config.game_password,
+		"verify_user_identity": config.verify_user_identity,
+		"admins": [config.username],
+		"allow_commands": config.allow_commands,
+		"autosave_interval": 10,
+		"autosave_slots": 5,
+		"afk_autokick_interval": 0,
+		"auto_pause": config.auto_pause,
+	};
+	fs.writeFileSync(instancedirectory + "/server-settings.json", JSON.stringify(serversettings, null, 4));
 	// Spawn factorio server
 	//var serverprocess = child_process.exec(commandline);
 	fileOps.getNewestFile(instancedirectory + "/saves/", fs.readdirSync(instancedirectory + "/saves/"),function(err, latestSave) {
