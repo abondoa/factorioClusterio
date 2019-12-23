@@ -5,6 +5,7 @@ RUN apt-get update && \
 
 COPY . /factorioClusterio
 WORKDIR factorioClusterio
+VOLUME ["/factorioClusterio/database"]
 
 RUN npm install --only=production && \
     node lib/npmPostinstall.js && \

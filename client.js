@@ -19,12 +19,13 @@ const fileOps = require("lib/fileOps");
 const stringUtils = require("lib/stringUtils.js");
 const configManager = require("lib/manager/configManager.js");
 const hashFile = require('lib/hash').hashFile;
+const resolveConfig = require('lib/resolve-config');
 
 // argument parsing
 const args = require('minimist')(process.argv.slice(2));
 
 // require config.json
-var config = require(args.config || './config');
+var config = resolveConfig(args.config || './config');
 var global = {};
 
 if (!fs.existsSync(config.instanceDirectory)) {
@@ -473,15 +474,19 @@ write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 read-data=${ path.resolve(config.factorioDirectory, "data") }\r\n
 write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 	`);
-	let name = "Clusterio instance: " + instance;
-	if (config.username) {
-		name = config.username + "'s clusterio " + instance;
+	let name = config.name;
+	if(!name) {
+		if (config.username) {
+			name = config.username + "'s clusterio " + instance;
+		} else {
+			name = "Clusterio instance: " + instance;
+		}
 	}
 	let serversettings = {
 		"name": name,
 		"description": config.description,
-		"tags": ["clusterio"],
-		"max_players": "20",
+		"tags": config.tags || ["clusterio"],
+		"max_players": config.max_players || "20",
 		"visibility": config.visibility,
 		"username": config.username,
 		"token": config.token,
@@ -489,9 +494,9 @@ write-data=${ path.resolve(config.instanceDirectory, instance) }\r\n
 		"verify_user_identity": config.verify_user_identity,
 		"admins": [config.username],
 		"allow_commands": config.allow_commands,
-		"autosave_interval": 10,
-		"autosave_slots": 5,
-		"afk_autokick_interval": 0,
+		"autosave_interval": config.autosave_interval || 10,
+		"autosave_slots": config.autosave_slots || 5,
+		"afk_autokick_interval": config.afk_autokick_interval || 0,
 		"auto_pause": config.auto_pause,
 	};
 	fs.writeFileSync(instancedirectory + "/server-settings.json", JSON.stringify(serversettings, null, 4));

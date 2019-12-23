@@ -39,10 +39,11 @@ const crypto = require('crypto');
 const base64url = require('base64url');
 const moment = require("moment");
 const request = require("request");
+const resolveConfig = require('lib/resolve-config');
 
 // constants
 console.log(`Requiring config from ${args.config || './config'}`);
-const config = require(args.config || './config');
+const config = resolveConfig(args.config || './config');
 config.databaseDirectory = args.databaseDirectory || config.databaseDirectory || "./database";
 const masterModFolder = path.join(config.databaseDirectory, "/masterMods/");
 mkdirp.sync(config.databaseDirectory);
@@ -176,7 +177,7 @@ const prometheusMasterInventoryGauge = new Prometheus.Gauge({
 	labelNames: ["itemName"],
 });
 setInterval(()=>{
-	fs.writeFileSync("database/items.json", JSON.stringify(db.items));
+	fs.writeFileSync(path.resolve(config.databaseDirectory, "items.json"), JSON.stringify(db.items));
 },config.autosaveInterval || 60000);
 /**
 GET Prometheus metrics endpoint. Returns performance and usage metrics in a prometheus readable format.
