@@ -66,3 +66,4 @@ sharedPlugins/*/DISABLED
 # IDE
 .idea/
 .env
+master.env

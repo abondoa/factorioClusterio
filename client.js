@@ -27,7 +27,7 @@ const args = require('minimist')(process.argv.slice(2));
 // require config.json
 var config = resolveConfig(args.config || './config');
 var global = {};
-
+console.log('Config: ' + JSON.stringify(config));
 if (!fs.existsSync(config.instanceDirectory)) {
 	fs.mkdirSync(config.instanceDirectory);
 }

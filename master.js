@@ -49,7 +49,7 @@ const masterModFolder = path.join(config.databaseDirectory, "/masterMods/");
 mkdirp.sync(config.databaseDirectory);
 mkdirp.sync(masterModFolder);
 config.secretFile = process.env.SECRET_API_TOKEN_FILE || config.secretFile || "secret-api-token.txt";
-
+console.log('Config: ' + JSON.stringify(config));
 // homebrew modules
 const getFactorioLocale = require("lib/getFactorioLocale");
 
