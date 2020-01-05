@@ -624,6 +624,7 @@ var _instanceInitialized;
 async function instanceManagement(instanceconfig) {
 	if (_instanceInitialized) return;
 	_instanceInitialized = true;
+	playersOnline = 0;
 
     console.log("Started instanceManagement();");
 
@@ -661,7 +662,11 @@ async function instanceManagement(instanceconfig) {
                     console.log("Clusterio | "+ pluginsToLoad[i].name + " | " + data.toString('utf8'));
 					return true;
 				} else if (data && data.toString('utf8')[0] == "/"){
-					return messageInterface(data.toString('utf8'), callback);
+					if(playersOnline)
+						return messageInterface(data.toString('utf8'), callback);
+					else
+	                    console.log("Clusterio | "+ pluginsToLoad[i].name + " (no players) | " + data.toString('utf8'));
+
 				}
 			}, { // extra functions to pass in object. Should have done it like this from the start, but won't break backwards compat.
 				socket, // socket.io connection to master (and ES6 destructuring, yay)
@@ -756,6 +761,7 @@ async function instanceManagement(instanceconfig) {
 				} else {
 					payload.playerCount = 0;
 				}
+				playersOnline = parseInt(payload.playerCount, 10);
 				
 				function callback(err, mac) {
 					if (err) {
