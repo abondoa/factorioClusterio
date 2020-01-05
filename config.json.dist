@@ -59,5 +59,6 @@
 	"autosaveInterval": 600000,
 	"disablePrometheusPushgateway": false,
 	"__comment8": "This setting only affects the master. It makes every import for things that arent 'electricity' return a maximum of 0. Effectively disables teleport chests.",
-	"disableImportsOfEverythingExceptElectricity": false
+	"disableImportsOfEverythingExceptElectricity": false,
+        "autosave_slots": 5
 }
